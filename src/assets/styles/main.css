@@ -1,0 +1,11 @@
+@import './reset.css';
+@import './fonts.css';
+@import './variables.css';
+@import './typography.css';
+@import './auth-forms.css';
+
+body {
+  font-family: var(--font-inter);
+  font-weight: var(--font-weight-regular);
+  color: var(--text-color-primary);
+}

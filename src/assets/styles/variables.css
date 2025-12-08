@@ -1,0 +1,26 @@
+:root {
+  /* font-family */
+  --font-inter: 'Inter', sans-serif;
+
+  /* font-sizes */
+  --font-size-xl: 2rem;
+  --font-size-l: 1.5rem;
+  --font-size-m: 1rem;
+
+  /* font-weights */
+  --font-weight-semibold: 600;
+  --font-weight-regular: 400;
+
+  /* line-heights */
+  --line-height-150: 1.5;
+  --line-height-100: 1;
+
+  /* colors */
+  --text-color-primary: #355B3E;
+  --text-color-secondary: #58745E;
+
+  /* ui colors */
+  --ui-color-deep-green: #355B3E;
+  --ui-color-bright-green: #029664;
+  --ui-color-dull-green: #95B29B;
+}
