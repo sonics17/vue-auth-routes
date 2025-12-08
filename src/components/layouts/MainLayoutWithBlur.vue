@@ -10,7 +10,7 @@
 <style lang="scss" scoped>
 .main-wrapper {
   background-color: #355B3E; 
-  min-height: 100vh;
+  min-height: 100dvh;
   display: flex;
   justify-content: center;
   position: relative;
