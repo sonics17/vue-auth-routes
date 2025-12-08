@@ -1,10 +1,10 @@
 <script setup>
-import MainLayoutWithBlur from '@/components/layouts/MainLayoutWithBlur.vue';
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import { getPostImageUrl, FALLBACK_IMAGE } from '@/utils/images'
+import MainLayoutWithBlur from '@/components/layouts/MainLayoutWithBlur.vue';
 import Button from '@/components/ui/Button.vue';
 import Spinner from '@/components/ui/Spinner.vue';
+import { getPostImageUrl, FALLBACK_IMAGE } from '@/utils/images';
 
 const route = useRoute()
 const postId = route.params.id

@@ -1,11 +1,11 @@
 <script setup>
-import MainLayoutWithBlur from '@/components/layouts/MainLayoutWithBlur.vue';
-import PostCard from '@/components/PostCard.vue';
-import Logo from '@/components/ui/Logo.vue';
 import { onMounted, ref } from 'vue';
-import { getPostImageUrl, FALLBACK_IMAGE } from '@/utils/images'
+import MainLayoutWithBlur from '@/components/layouts/MainLayoutWithBlur.vue';
 import Button from '@/components/ui/Button.vue';
 import Spinner from '@/components/ui/Spinner.vue';
+import PostCard from '@/components/PostCard.vue';
+import Logo from '@/components/ui/Logo.vue';
+import { getPostImageUrl, FALLBACK_IMAGE } from '@/utils/images';
 
 const posts = ref([])
 const errorMessage = ref(null)
