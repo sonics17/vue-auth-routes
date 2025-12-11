@@ -51,4 +51,12 @@ const props = defineProps({
 .button:focus {
   outline: 2px solid var(--ui-color-bright-green);
 }
+
+.button--blocked {
+  pointer-events: none;
+  opacity: 0.8;
+  outline: none;
+  background-color: darkgrey;
+  border: 1px solid darkgrey;
+}
 </style>

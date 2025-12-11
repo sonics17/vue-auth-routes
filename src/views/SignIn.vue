@@ -16,23 +16,32 @@ const emailError = ref(null)
 const passwordError = ref(null)
 const submitErrorMessage = ref('')
 
+const isLoading = ref(false)
+
 function goToSignUp() {
   router.push({ name: 'sign-up' })
 }
 
-function goToPosts() {
-  router.push({ name: 'posts'})
+async function goToPosts() {
+  return router.push({ name: 'posts'})
 }
 
 async function signInWithEmail() {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email: email.value,
-    password: password.value,
-  })
-  if (data.user) {
-    goToPosts()
-  } else {
+  isLoading.value = true
+
+  try {
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email: email.value,
+      password: password.value,
+    })
+
+    if (error) throw error
+
+    await goToPosts()
+  } catch (error) {
     submitErrorMessage.value = 'Invalid email or password'
+  } finally {
+    isLoading.value = false
   }
 }
 
@@ -45,6 +54,8 @@ function validatePasswordField() {
 }
 
 function handleSubmit() {
+  if (isLoading.value) return
+
   submitErrorMessage.value = null
   let isValid = true
 
@@ -77,43 +88,47 @@ function handleSubmit() {
     </div>
 
     <form novalidate @submit.prevent class="auth-form">
-      <Input
-        id="email"
-        type="email"
-        label="Email"
-        :error="emailError"
-        v-model="email"
-        @blur="validateEmailField"
-        @focus="emailError = null; submitErrorMessage = null"
-      />
+      <fieldset :disabled="isLoading" class=".auth-form__container">
+        <Input 
+          id="email" 
+          type="email" 
+          label="Email" 
+          :error="emailError" 
+          v-model="email" 
+          @blur="validateEmailField" 
+          @focus="emailError = null; submitErrorMessage = null" 
+        />
 
-      <Input
-        id="password"
-        type="password"
-        label="Password"
-        :error="passwordError"
-        v-model="password"
-        @blur="validatePasswordField"
-        @focus="passwordError = null; submitErrorMessage = null"
-      />
+        <Input 
+          id="password" 
+          type="password" 
+          label="Password" 
+          :error="passwordError" 
+          v-model="password"
+          @blur="validatePasswordField"
+          @focus="passwordError = null; submitErrorMessage = null" 
+        />
 
-      <div class="auth-footer">
-        <div class="error-message-container">
-          <div v-if="submitErrorMessage" class="error-message">
-            {{ submitErrorMessage }}
+        <div class="auth-footer">
+          <div class="error-message-container">
+            <div v-if="submitErrorMessage" class="error-message">
+              {{ submitErrorMessage }}
+            </div>
+          </div>
+
+          <div class="auth-actions">
+            <Button :variant="isLoading ? 'blocked' : 'primary'" @click="handleSubmit">
+              Login
+            </Button>
+
+            <Button :variant="isLoading ? 'blocked' : 'secondary'" @click="goToSignUp">
+              Sign Up
+            </Button>
           </div>
         </div>
 
-        <div class="auth-actions">
-          <Button variant="primary" @click="handleSubmit">
-            Login
-          </Button>
+      </fieldset>
 
-          <Button variant="secondary" @click="goToSignUp">
-            Sign Up
-          </Button>
-        </div>
-      </div>
     </form>
   </AuthCard>
 </template>
