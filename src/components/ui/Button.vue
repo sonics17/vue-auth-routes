@@ -56,7 +56,7 @@ const props = defineProps({
   pointer-events: none;
   opacity: 0.8;
   outline: none;
-  background-color: darkgrey;
+  background-color: rgb(210, 210, 210);
   border: 1px solid darkgrey;
 }
 </style>
