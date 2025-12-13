@@ -4,77 +4,27 @@ import { useRouter } from 'vue-router';
 import Button from '@/components/ui/Button.vue';
 import Input from '@/components/ui/Input.vue';
 import AuthCard from '@/components/AuthCard.vue';
-import { supabase } from '@/lib/supabaseClient';
-import { getRequiredError, getEmailError, getPasswordError } from '@/utils/validation';
+import { useAuthForm } from '@/composables/useAuthForm';
 
 const router = useRouter()
 
+const {
+  email,
+  password,
+  emailError,
+  passwordError,
+  submitErrorMessage,
+  showSuccessSignUpMessage,
+  authWithEmail,
+  handleSubmit,
+  validateEmailField,
+  validatePasswordField,
+  clearEmailError,
+  clearPasswordError,
+} = useAuthForm('signup')
+
 function goToSignIn() {
   router.push({ name: 'sign-in' })
-}
-
-const email = ref('')
-const password = ref('')
-
-const emailError = ref(null)
-const passwordError = ref(null)
-const submitErrorMessage = ref('')
-
-const showSubmitInfoMessage = ref(false)
-
-const isLoading = ref(false)
-
-async function signUpNewUser() {
-  isLoading.value = true
-
-  try {
-    const { data, error } = await supabase.auth.signUp({
-      email: email.value,
-      password: password.value,
-    })
-
-    if (error) throw error
-
-    showSubmitInfoMessage.value = true
-  } catch (error) {
-    submitErrorMessage.value = 'Something went wrong'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-function validateEmailField() {
-  emailError.value = getEmailError(email.value)
-}
-
-function validatePasswordField() {
-  passwordError.value = getPasswordError(password.value)
-}
-
-function handleSubmit() {
-  if (isLoading.value) return
-
-  submitErrorMessage.value = null
-  let isValid = true
-
-  if (getRequiredError(email.value) || getRequiredError(password.value)) {
-    isValid = false
-    submitErrorMessage.value = 'All fields are required'
-    return
-  }
-
-  validateEmailField()
-  validatePasswordField()
-
-  if (emailError.value || passwordError.value) {
-    isValid = false
-  }
-
-  if (isValid) {
-    signUpNewUser()
-  } else {
-    submitErrorMessage.value = 'Please correct the errors above'
-  }
 }
 </script>
 
@@ -82,14 +32,14 @@ function handleSubmit() {
   <AuthCard>
     <div class="auth-header">
       <h1 class="auth-header__title title">Artificial Intelligence giving you travel recommendations</h1>
-      <p v-if="showSubmitInfoMessage" class="info-message">
+      <p v-if="showSuccessSignUpMessage" class="info-message">
         Your account has been successfully created! 
         <RouterLink :to="{ name: 'sign-in' }" class="login-link">Login</RouterLink>.
       </p>
       <p v-else class="auth-header__text regular-text">Create your account</p>
     </div>
 
-    <form v-if="!showSubmitInfoMessage" novalidate @submit.prevent class="auth-form">
+    <form v-if="!showSuccessSignUpMessage" novalidate @submit.prevent class="auth-form">
       <fieldset class="auth-form__container">
         <Input 
           id="email"
@@ -98,7 +48,7 @@ function handleSubmit() {
           :error="emailError"
           v-model="email"
           @blur="validateEmailField"
-          @focus="emailError = null; submitErrorMessage = null" 
+          @focus="clearEmailError" 
         />
 
         <Input 
@@ -108,7 +58,7 @@ function handleSubmit() {
           :error="passwordError" 
           v-model="password"
           @blur="validatePasswordField" 
-          @focus="passwordError = null; submitErrorMessage = null" 
+          @focus="clearPasswordError" 
         />
 
         <div class="auth-footer">

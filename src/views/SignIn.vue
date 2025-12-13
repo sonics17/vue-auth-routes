@@ -4,79 +4,26 @@ import { useRouter } from 'vue-router';
 import Button from '@/components/ui/Button.vue';
 import Input from '@/components/ui/Input.vue';
 import AuthCard from '@/components/AuthCard.vue';
-import { supabase } from '@/lib/supabaseClient';
-import { getRequiredError, getEmailError, getPasswordError } from '@/utils/validation';
+import { useAuthForm } from '@/composables/useAuthForm';
 
 const router = useRouter()
 
-const email = ref('')
-const password = ref('')
-
-const emailError = ref(null)
-const passwordError = ref(null)
-const submitErrorMessage = ref('')
-
-const isLoading = ref(false)
+const {
+  email,
+  password,
+  emailError,
+  passwordError,
+  submitErrorMessage,
+  isLoading,
+  handleSubmit,
+  validateEmailField,
+  validatePasswordField,
+  clearEmailError,
+  clearPasswordError,
+} = useAuthForm('signin')
 
 function goToSignUp() {
   router.push({ name: 'sign-up' })
-}
-
-function goToPosts() {
-  return router.push({ name: 'posts'})
-}
-
-async function signInWithEmail() {
-  isLoading.value = true
-
-  try {
-    const { data, error } = await supabase.auth.signInWithPassword({
-      email: email.value,
-      password: password.value,
-    })
-
-    if (error) throw error
-
-    await goToPosts()
-  } catch (error) {
-    submitErrorMessage.value = 'Invalid email or password'
-  } finally {
-    isLoading.value = false
-  }
-}
-
-function validateEmailField() {
-  emailError.value = getEmailError(email.value)
-}
-
-function validatePasswordField() {
-  passwordError.value = getPasswordError(password.value)
-}
-
-function handleSubmit() {
-  if (isLoading.value) return
-
-  submitErrorMessage.value = null
-  let isValid = true
-
-  if (getRequiredError(email.value) || getRequiredError(password.value)) {
-    isValid = false
-    submitErrorMessage.value = 'All fields are required'
-    return
-  }
-
-  validateEmailField()
-  validatePasswordField()
-
-  if (emailError.value || passwordError.value) {
-    isValid = false
-  }
-
-  if (isValid) {
-    signInWithEmail()
-  } else {
-    submitErrorMessage.value = 'Please correct the errors above'
-  }
 }
 </script>
 
@@ -96,7 +43,7 @@ function handleSubmit() {
           :error="emailError" 
           v-model="email" 
           @blur="validateEmailField" 
-          @focus="emailError = null; submitErrorMessage = null" 
+          @focus="clearEmailError" 
         />
 
         <Input 
@@ -106,7 +53,7 @@ function handleSubmit() {
           :error="passwordError" 
           v-model="password"
           @blur="validatePasswordField"
-          @focus="passwordError = null; submitErrorMessage = null" 
+          @focus="clearPasswordError" 
         />
 
         <div class="auth-footer">
