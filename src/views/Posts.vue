@@ -5,7 +5,7 @@ import Button from '@/components/ui/Button.vue';
 import Spinner from '@/components/ui/Spinner.vue';
 import PostCard from '@/components/PostCard.vue';
 import Logo from '@/components/ui/Logo.vue';
-import { getPostImageUrl, FALLBACK_IMAGE } from '@/utils/images';
+import { getPostImageUrl } from '@/utils/images';
 
 const posts = ref([])
 const errorMessage = ref(null)
@@ -47,7 +47,6 @@ onMounted(() => {
         :id="post.id"
         :title="post.title"
         :image-url="getPostImageUrl(post.id)"
-        :fallback-image="FALLBACK_IMAGE"
         class="posts__item"
       />
     </div>
