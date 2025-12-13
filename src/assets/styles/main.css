@@ -2,7 +2,6 @@
 @import './fonts.css';
 @import './variables.css';
 @import './typography.css';
-@import './auth-forms.css';
 
 body {
   font-family: var(--font-inter);
