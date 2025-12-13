@@ -52,7 +52,7 @@ onMounted(async () => {
       <div v-else class="post-container">
         <div v-if="errorMessage" class="error-message-container">
           <span>{{ errorMessage }}</span>
-          <Button @click="fetchPostData" class="retry-button">Retry</Button>
+          <Button @click="fetchPostData(postId)" class="retry-button">Retry</Button>
         </div>
 
         <div v-else class="post">
