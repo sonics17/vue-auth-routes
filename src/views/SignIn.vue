@@ -88,7 +88,7 @@ function handleSubmit() {
     </div>
 
     <form novalidate @submit.prevent class="auth-form">
-      <fieldset :disabled="isLoading" class=".auth-form__container">
+      <fieldset :disabled="isLoading" class="auth-form__container">
         <Input 
           id="email" 
           type="email" 
