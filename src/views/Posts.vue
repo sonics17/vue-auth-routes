@@ -40,7 +40,7 @@ onMounted(() => {
       <Spinner class="spinner" />
     </div>
 
-    <div v-else class="posts">
+    <div v-else-if="posts.length > 0" class="posts">
       <PostCard 
         v-for="(post, index) in posts"
         :key="index"
@@ -49,6 +49,10 @@ onMounted(() => {
         :image-url="getPostImageUrl(post.id)"
         class="posts__item"
       />
+    </div>
+
+    <div v-else class="posts-empty">
+      <h1 class="title">No posts yet</h1>
     </div>
 
     <div v-if="errorMessage" class="error-message-container">
@@ -109,6 +113,10 @@ onMounted(() => {
 
 .retry-button {
   max-width: fit-content;
+}
+
+.posts-empty > .title {
+  text-align: center;
 }
 
 @media(max-width: bp.$breakpoint-mobile) {
