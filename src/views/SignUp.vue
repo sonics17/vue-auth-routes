@@ -129,13 +129,44 @@ function handleSubmit() {
 </template>
 
 <style scoped>
-.login-link {
-  color: var(--text-color-primary);
-  text-decoration: none;
-  font-weight: var(--font-weight-semibold);
-}
+  .auth-header__title {
+    margin-bottom: 1rem;
+  }
 
-.login-link:hover {
-  text-decoration: underline;
-}
+  .auth-header__text {
+    color: var(--text-color-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .auth-form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .auth-actions {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .error-message-container {
+    min-height: 1.5rem;
+    margin-bottom: .5rem;
+  }
+
+  .login-link {
+    color: var(--text-color-primary);
+    text-decoration: none;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .login-link:hover {
+    text-decoration: underline;
+  }
+
+  @media(max-width: 415px) {
+    .auth-actions {
+      flex-direction: column;
+    }
+  }
 </style>

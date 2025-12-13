@@ -132,3 +132,36 @@ function handleSubmit() {
     </form>
   </AuthCard>
 </template>
+
+<style scoped>
+  .auth-header__title {
+    margin-bottom: 1rem;
+  }
+
+  .auth-header__text {
+    color: var(--text-color-secondary);
+    margin-bottom: 2rem;
+  }
+
+  .auth-form__container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .auth-actions {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .error-message-container {
+    min-height: 1.5rem;
+    margin-bottom: .5rem;
+  }
+
+  @media(max-width: 415px) {
+    .auth-actions {
+      flex-direction: column;
+    }
+  }
+</style>
