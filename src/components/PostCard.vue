@@ -29,7 +29,7 @@ function goToPostDetails() {
       @error="handleImageError"
     >
     <div class="post-card__content">
-      <router-link class="post-card__link regular-text" :to="{name: 'post-details', params: {id: id}}">{{ title }}</router-link>
+      <h2 class="post-card__title regular-text">{{ title }}</h2>
     </div>
   </div>
 </template>
@@ -73,15 +73,14 @@ function goToPostDetails() {
   justify-content: center;
 }
 
-.post-card__link {
+.post-card__title {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   font-weight: var(--font-weight-semibold);
-  text-decoration: none;
 }
 
-.post-card__link:hover {
+.post-card__title:hover {
   text-decoration: underline;
 }
 </style>
