@@ -1,5 +1,4 @@
 <script setup>
-import { ref } from 'vue';
 import { useRouter } from 'vue-router';
 import Button from '@/components/ui/Button.vue';
 import Input from '@/components/ui/Input.vue';
