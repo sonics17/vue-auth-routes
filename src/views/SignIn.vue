@@ -22,7 +22,7 @@ function goToSignUp() {
   router.push({ name: 'sign-up' })
 }
 
-async function goToPosts() {
+function goToPosts() {
   return router.push({ name: 'posts'})
 }
 

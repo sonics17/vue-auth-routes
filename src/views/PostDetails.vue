@@ -40,7 +40,7 @@ function handleImageError() {
   currentPostImage.value = FALLBACK_IMAGE
 }
 
-onMounted(async () => {
+onMounted(() => {
   fetchPostData(postId)
 })
 </script>
