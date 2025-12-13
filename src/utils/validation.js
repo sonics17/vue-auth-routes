@@ -4,7 +4,7 @@ export const getRequiredError = (value) => {
 }
 
 export const getEmailError = (email) => {
-  if (/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) return null
+  if (/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)) return null
   return 'Incorrect Email'
 }
 
